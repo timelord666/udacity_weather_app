@@ -21,6 +21,15 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
+app.get('/all', (req, res) => {
+    res.send(projectData);
+})
+
+app.post('/save', (req, res) => {
+    projectData.temperature = req.body.temperature;
+    projectData.data = req.body.data;
+    projectData.userResponse = req.body.userResponse;
+})
 
 // Setup Server
 
