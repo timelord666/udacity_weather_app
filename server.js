@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+projectData = [];
 const port = 8000;
 
 const bodyParser = require('body-parser');
@@ -21,14 +21,22 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
-app.get('/all', (req, res) => {
-    res.send(projectData);
+app.get('/recent', (req, res) => {
+    res.send(projectData[projectData.length - 1]);
 })
 
 app.post('/save', (req, res) => {
-    projectData.temperature = req.body.temperature;
-    projectData.data = req.body.data;
-    projectData.userResponse = req.body.userResponse;
+    let data = {
+        temperature: req.body.temperature,
+        date: req.body.date,
+        userResponse: req.body.userResponse,
+    };
+
+
+    projectData.push(data);
+
+    
+    res.send('worked');
 })
 
 // Setup Server
